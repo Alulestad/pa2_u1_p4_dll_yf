@@ -65,7 +65,6 @@ public class Pa2U1P4DllYfApplication implements CommandLineRunner{
 	    mat.realizarMatricula("1");
 	    
 	    
-	    
 		
 		
 	}
