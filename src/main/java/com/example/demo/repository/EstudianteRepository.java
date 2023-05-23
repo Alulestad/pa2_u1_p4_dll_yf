@@ -1,5 +1,7 @@
 package com.example.demo.repository;
 
+import java.util.List;
+
 import com.example.demo.repository.modelo.Estudiante;
 
 public interface EstudianteRepository {
@@ -8,8 +10,10 @@ public interface EstudianteRepository {
 
 	public void actualizar(Estudiante estudiante);
 
-	public Estudiante buscar(String cedula); // buscamos por un identificador
+	public Estudiante seleccionar(String cedula); // buscamos por un identificador
 
 	public void eliminar(String cedula);// eliminamos por un identificador
+	
+	public List<Estudiante> seleccionarTodos();
 
 }

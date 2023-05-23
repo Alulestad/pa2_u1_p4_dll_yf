@@ -1,24 +1,21 @@
 package com.example.demo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import ch.qos.logback.classic.Logger;
+import com.example.demo.repository.modelo.Estudiante;
+import com.example.demo.service.EstudianteService;
 
 @SpringBootApplication
-public class Pa2U1P4DllYfApplication implements CommandLineRunner{
-
+public class Pa2U1P4DllYfApplication implements CommandLineRunner {
 	@Autowired
-	private Profesor profe2;
-	
+	private EstudianteService estudianteService;
 
-	
-	
-	
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U1P4DllYfApplication.class, args);
 	}
@@ -26,47 +23,64 @@ public class Pa2U1P4DllYfApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		
-		System.out.println("Mi primer proyecto");
-		
-		/*
-		 * Spring framework: Framework que permite la construcción/desarrollo de 
-		 * aplicaciones empresariales basadas en spring
-		 */
-		
-		Profesor profe=new Profesor();
-		profe.setApellido("Llumiquinga");
-		profe.setCedula("1721495628");
-		profe.setFechaNacimiento(LocalDateTime.now());
-		profe.setNombre("Daniel");
-		
+		Estudiante miEstudiante = new Estudiante();
+		miEstudiante.setApellido("Flores");
+		miEstudiante.setCedula("123456789");
+		miEstudiante.setNombre("Yaniri");
+		miEstudiante.setFechaNacimiento(LocalDateTime.of(1911, 07, 07, 10, 50));
 
+		Estudiante miEstudiante1 = new Estudiante();
+		miEstudiante1.setApellido("Llumiquinga");
+		miEstudiante1.setCedula("12345655566");
+		miEstudiante1.setNombre("Daniel");
+		miEstudiante1.setFechaNacimiento(LocalDateTime.of(1995, 07, 27, 10, 50));
+
+		// 1. guaradar
+		this.estudianteService.guardar(miEstudiante);
+		this.estudianteService.guardar(miEstudiante1);
+
+		// 5. imprimir reporte
+		List<Estudiante> reporte = this.estudianteService.reporteDeTodos();
+
+		System.out.println("Reporte de todos los estudiantes");
+		for (Estudiante estu : reporte) {
+			System.out.println(estu);
+		}
+
+		// 2. Actualizar
+
+		miEstudiante1.setApellido("Molina");
+		this.estudianteService.actualizar(miEstudiante1);
+
+		// 5. imprimir reporte
+		List<Estudiante> reporte2 = this.estudianteService.reporteDeTodos();
+
+		System.out.println("Reporte de todos los estudiantes");
+		for (Estudiante estu : reporte2) {
+			System.out.println(estu);
+		}
+
+		// 3. Eliminar
+		this.estudianteService.borrar("12345655566");
+
+		// 5. imprimir reporte
+		List<Estudiante> reporte3 = this.estudianteService.reporteDeTodos();
+
+		System.out.println("Reporte de todos los estudiantes");
+		for (Estudiante estu : reporte3) {
+			System.out.println(estu);
+		}
 		
-		System.out.println(profe);
-		profe.setApellido("Velez");
-		System.out.println(profe.getApellido());
+		//4. Buscar por cedula
 		
-		System.out.println(profe2);
-		profe2.setApellido("Teran");
-	    System.out.println(profe2.getApellido());
-	    Profesor profe3;
-	    profe3=profe;
-	    System.out.println(profe3);
-	    profe.setNombre("jose");
-	    
-	    System.out.println(profe3);
-	    profe3.setNombre("mario");
-	    
-	    System.out.println(profe);
-	    
-	    System.out.println();
-	    
-	    MatriculaCalculo mat= new MatriculaCalculo();
-	    mat.realizarMatricula("1");
-	    
-	    
+		Estudiante encontrado=	this.estudianteService.buscarPorCedula("123456789");
+		System.out.println("Estudiante encontrado");
+		System.out.println(encontrado);
 		
-		
+		Estudiante encontrado2=	this.estudianteService.buscarPorCedula("987987987");
+		System.out.println("Estudiante encontrado");
+		System.out.println(encontrado2);
+
 	}
 
 }
