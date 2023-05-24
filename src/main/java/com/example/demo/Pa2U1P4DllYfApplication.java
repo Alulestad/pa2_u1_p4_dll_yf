@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,13 +10,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.demo.banco.repository.CuentaRepository;
+import com.example.demo.banco.repository.modelo.Cuenta;
+import com.example.demo.banco.service.CuentaService;
 import com.example.demo.repository.modelo.Estudiante;
 import com.example.demo.service.EstudianteService;
 
 @SpringBootApplication
 public class Pa2U1P4DllYfApplication implements CommandLineRunner {
 	@Autowired
-	private EstudianteService estudianteService;
+	private CuentaService cuentaService;
+	
+	@Autowired
+	private CuentaRepository cuentaRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U1P4DllYfApplication.class, args);
@@ -22,65 +30,27 @@ public class Pa2U1P4DllYfApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		Estudiante miEstudiante = new Estudiante();
-		miEstudiante.setApellido("Flores");
-		miEstudiante.setCedula("123456789");
-		miEstudiante.setNombre("Yaniri");
-		miEstudiante.setFechaNacimiento(LocalDateTime.of(1911, 07, 07, 10, 50));
-
-		Estudiante miEstudiante1 = new Estudiante();
-		miEstudiante1.setApellido("Llumiquinga");
-		miEstudiante1.setCedula("12345655566");
-		miEstudiante1.setNombre("Daniel");
-		miEstudiante1.setFechaNacimiento(LocalDateTime.of(1995, 07, 27, 10, 50));
-
-		// 1. guaradar
-		this.estudianteService.guardar(miEstudiante);
-		this.estudianteService.guardar(miEstudiante1);
-
-		// 5. imprimir reporte
-		List<Estudiante> reporte = this.estudianteService.reporteDeTodos();
-
-		System.out.println("Reporte de todos los estudiantes");
-		for (Estudiante estu : reporte) {
-			System.out.println(estu);
-		}
-
-		// 2. Actualizar
-
-		miEstudiante1.setApellido("Molina");
-		this.estudianteService.actualizar(miEstudiante1);
-
-		// 5. imprimir reporte
-		List<Estudiante> reporte2 = this.estudianteService.reporteDeTodos();
-
-		System.out.println("Reporte de todos los estudiantes");
-		for (Estudiante estu : reporte2) {
-			System.out.println(estu);
-		}
-
-		// 3. Eliminar
-		this.estudianteService.borrar("12345655566");
-
-		// 5. imprimir reporte
-		List<Estudiante> reporte3 = this.estudianteService.reporteDeTodos();
-
-		System.out.println("Reporte de todos los estudiantes");
-		for (Estudiante estu : reporte3) {
-			System.out.println(estu);
-		}
+		Cuenta cuenta1=new Cuenta();
+		cuenta1.setCedulaPropietario("123456789");
+		cuenta1.setFechaApertura(LocalDate.of(2020, 01, 01));
+		cuenta1.setNumero("123456789");
+		cuenta1.setSaldo(new BigDecimal(123));
+		cuenta1.setTipo("A");
 		
-		//4. Buscar por cedula
+		Cuenta cuenta2=new Cuenta();
+		cuenta2.setCedulaPropietario("987654321");
+		cuenta2.setFechaApertura(LocalDate.of(2010, 02, 10));
+		cuenta2.setNumero("987654321");
+		cuenta2.setSaldo(new BigDecimal(321));
+		cuenta2.setTipo("C");
 		
-		Estudiante encontrado=	this.estudianteService.buscarPorCedula("123456789");
-		System.out.println("Estudiante encontrado");
-		System.out.println(encontrado);
 		
-		Estudiante encontrado2=	this.estudianteService.buscarPorCedula("987987987");
-		System.out.println("Estudiante encontrado");
-		System.out.println(encontrado2);
-
+		
+		
+		
 	}
 
 }
+
+
+
