@@ -3,8 +3,10 @@ package com.example.demo.banco.service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.banco.repository.CuentaRepository;
@@ -21,6 +23,10 @@ public class TransferenciaServiceImpl implements TransferenciaService{
 	
 	@Autowired
 	private CuentaRepository cuentaRepository;
+	
+	@Autowired
+	@Qualifier("internacional")
+	private MontoDebitarService debitarService;
 	
 
 	@Override
@@ -56,13 +62,15 @@ public class TransferenciaServiceImpl implements TransferenciaService{
 				
 		BigDecimal saldoOrigen=cuentaOrigen.getSaldo();	
 		
+		BigDecimal montoDebitar=this.debitarService.calcular(monto);
+		
 		//3.- validar si el saldo es suficiente
 		
-		if(monto.compareTo(saldoOrigen)<=0) {
+		if(montoDebitar.compareTo(saldoOrigen)<=0) {
 			//5.- Si si es suficiente ir al paso 6
 			//6.- Realizamos la resta del salgo origen - monto
 			
-			BigDecimal nuevoSaldoOrigen=saldoOrigen.subtract(monto);
+			BigDecimal nuevoSaldoOrigen=saldoOrigen.subtract(montoDebitar);
 			
 			//7.- Actualizamos el nuevo saldo de la cuenta origen
 			
@@ -109,6 +117,14 @@ public class TransferenciaServiceImpl implements TransferenciaService{
 
 		
 	}
+
+	@Override
+	public List<Transferencia> buscarTodos() {
+		// TODO Auto-generated method stub
+		return this.transferenciaRepository.seleccionarTodos();
+	}
+	
+	
 	
 	
 

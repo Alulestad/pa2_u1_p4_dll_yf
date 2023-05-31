@@ -41,4 +41,12 @@ public class TransferenciaRepositoryImpl implements TransferenciaRepository {
 		return transferenciaEncontrado;
 	}
 
+	@Override
+	public List<Transferencia> seleccionarTodos() {
+		// TODO Auto-generated method stub
+		return baseDatos;
+	}
+
+	
+	
 }

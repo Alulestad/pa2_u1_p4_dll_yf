@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,6 +26,7 @@ public class Pa2U1P4DllYfApplication implements CommandLineRunner {
 	private CuentaService cuentaService;
 	
 	@Autowired
+
 	private TransferenciaService transferenciaService;
 
 
@@ -55,14 +57,21 @@ public class Pa2U1P4DllYfApplication implements CommandLineRunner {
 		this.cuentaService.crear(cuenta2);
 		
 		
-		System.out.println(this.cuentaService.buscarPorNumero("987654321"));
+		System.out.println(this.cuentaService.buscarPorNumero("987987"));
 		
-		this.transferenciaService.realizar("123456789", "987654321", new BigDecimal(10));
+		this.transferenciaService.realizar("987987", "654654", new BigDecimal(10));
 		
-		System.out.println("Saldo origen "+this.cuentaService.buscarPorNumero("123456789")+" saldo " + this.cuentaService.buscarPorNumero("123456789").getSaldo());
-		System.out.println("Saldo DESTINO "+this.cuentaService.buscarPorNumero("987654321")+" saldo " + this.cuentaService.buscarPorNumero("987654321").getSaldo());
-
-	
+		
+		System.out.println("Saldo origen "+this.cuentaService.buscarPorNumero("987987")+" saldo " + this.cuentaService.buscarPorNumero("987987").getSaldo());
+		System.out.println("Saldo DESTINO "+this.cuentaService.buscarPorNumero("654654")+" saldo " + this.cuentaService.buscarPorNumero("654654").getSaldo());
+		
+		
+		//this.transferenciaService.realizar("987987", "654654", new BigDecimal(20));
+		//this.transferenciaService.realizar("654654", "987987", new BigDecimal(10));
+		System.out.println("LISTADO TRANSFERENCIAS");
+		//this.transferenciaService.buscarTodos().forEach(System.out::println);
+		
+		
 	}
 
 }

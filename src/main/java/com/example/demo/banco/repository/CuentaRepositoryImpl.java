@@ -15,8 +15,7 @@ public class CuentaRepositoryImpl implements CuentaRepository {
 	
 	@Override
 	public void insertar(Cuenta cuenta) {
-		System.out.println("Cuenta");
-		System.out.println(cuenta);
+
 		baseDatos.add(cuenta);
 
 	}
@@ -38,7 +37,6 @@ public class CuentaRepositoryImpl implements CuentaRepository {
 	public Cuenta seleccionarPorNumero(String numero) {
 		Cuenta cuentaEncontrado= new Cuenta();
 		for(Cuenta cuenta:baseDatos) {
-			System.out.println(numero.equals(cuenta.getNumero()));
 			if(numero.equals(cuenta.getNumero())) {
 				cuentaEncontrado=cuenta;
 			}
